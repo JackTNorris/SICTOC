@@ -5,7 +5,7 @@ import {
   receiveMessages,
   clearMessages,
 } from '../actions/ChatActions';
-import {StyleSheet, View, Dimensions} from 'react-native';
+import {StyleSheet, View, Dimensions, AppState} from 'react-native';
 import {destroyRoom} from '../actions/ChatRoomActions';
 import MessageItem from './MessageItem';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -14,6 +14,16 @@ class MessageList extends React.Component {
   componentDidMount = () => {
     console.log(this.props.chatRoomCode);
     this.props.rMessages(this.props.chatRoomCode);
+    AppState.addEventListener('change', (state) => {
+      if (state === 'active') {
+        console.log('ready');
+      } else if (state === 'inactive') {
+        this.props.chatRoomsToDelete.forEach((item) => {
+          this.props.dRoom(item);
+        });
+        console.log('deleted thing');
+      }
+    });
   };
   render() {
     return (
@@ -66,7 +76,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  const {chatRoomCode, uniqueID} = state.chatRoom;
+  const {chatRoomCode, uniqueID, chatRoomsToDelete} = state.chatRoom;
   const {messages} = state.chat;
   return {chatRoomCode, messages, uniqueID};
 };

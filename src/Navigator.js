@@ -29,8 +29,7 @@ class Navigator extends React.Component {
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName={this.props.loggedIn ? 'Main' : 'Login'}
-            headerMode="none"
-            >
+            headerMode="none">
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Chat" component={ChatScreen} />
             <Stack.Screen name="Main" component={MainScreen} />
@@ -39,7 +38,7 @@ class Navigator extends React.Component {
               component={NearbyStudentInfo}
             />
           </Stack.Navigator>
-          <LocationTracker />
+          {this.props.loggedIn ? <LocationTracker /> : null}
         </NavigationContainer>
       );
     } else {

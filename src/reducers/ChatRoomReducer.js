@@ -9,21 +9,29 @@ const INITIAL_STATE = {
   chatRoomCode: '',
   inRoom: false,
   uniqueID: '',
+  chatRoomsToDelete: [],
 };
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case CREATED_ROOM:
+      let chatRoomsToDelete = [...state.chatRoomsToDelete];
+      chatRoomsToDelete.push(action.payload);
       return {
         ...state,
         chatRoomCode: action.payload,
         inRoom: true,
         uniqueID: randomString(10),
+        chatRoomsToDelete: chatRoomsToDelete,
       };
     case DESTROYED_ROOM:
+      let chatRoomCodestoDelete = state.chatRoomsToDelete.filter(
+        (c) => c !== action.payload,
+      );
       return {
         ...state,
         chatRoomCode: '',
         inRoom: false,
+        chatRoomsToDelete: chatRoomCodestoDelete,
       };
     case JOINED_ROOM:
       return {

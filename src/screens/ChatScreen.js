@@ -7,6 +7,11 @@ import {receiveMessages, sendMessage} from '../actions/ChatActions';
 import MessageList from '../components/MessageList';
 
 export default class Chat extends React.Component {
+  componentDidMount() {
+    this.props.navigation.addListener('focus', () => {
+      console.log('WHALSDKFASKDFH');
+    });
+  }
   render() {
     return (
       <View style={{flex: 1}}>

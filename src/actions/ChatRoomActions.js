@@ -29,8 +29,8 @@ export const createRoom = (askerID, nearbyStudentID) => {
 
 export const destroyRoom = (chatRoomCode) => {
   return async (dispatch) => {
-    await db.ref(`/chats/${chatRoomCode}`).off('child_added');
-    dispatch({type: DESTROYED_ROOM});
+    await db.ref(`/chats/${chatRoomCode}`).remove();
+    dispatch({type: DESTROYED_ROOM, payload: chatRoomCode});
   };
 };
 

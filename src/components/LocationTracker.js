@@ -31,6 +31,13 @@ class LocationTracker extends React.Component {
         this.props.stop(this.props.studentID);
         console.log('stopped');
       }
+      else if (state === 'background') {
+        this.props.stop(this.props.studentID);
+        clearTimeout();
+        clearInterval();
+        this.props.stop(this.props.studentID);
+        console.log('stopped');
+      }
     });
   }
   requestLocationPermission = async () => {

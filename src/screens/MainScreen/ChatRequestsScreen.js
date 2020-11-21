@@ -15,9 +15,16 @@ class ChatRequestsScreen extends React.Component {
       (snapshot) => {
         this.setState({invitedChats: []});
         snapshot.forEach((item) => {
-          this.setState({
-            invitedChats: [...this.state.invitedChats, item.val()],
-          });
+          db.ref('/chat')
+            .once('value')
+            .then((snapshot) => {
+              if (snapshot.hasChild(item.val().roomCode)) {
+              } else {
+                this.setState({
+                  invitedChats: [...this.state.invitedChats, item.val()],
+                });
+              }
+            });
         });
       },
     );
