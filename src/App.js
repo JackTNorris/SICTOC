@@ -8,13 +8,14 @@
 
 import React from 'react';
 import {StyleSheet, ScrollView, View, Text, StatusBar} from 'react-native';
+import SettingsScreen from './screens/SettingsScreen';
 
 export default class App extends React.Component {
   componentDidMount() {}
   render() {
     return (
-      <View>
-        <Text>Hello</Text>
+      <View style={{flex: 1}}>
+        <SettingsScreen />
       </View>
     );
   }
