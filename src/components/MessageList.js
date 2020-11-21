@@ -5,7 +5,7 @@ import {
   receiveMessages,
   clearMessages,
 } from '../actions/ChatActions';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {StyleSheet, View, Dimensions} from 'react-native';
 import {destroyRoom} from '../actions/ChatRoomActions';
 import MessageItem from './MessageItem';
 import {ScrollView} from 'react-native-gesture-handler';

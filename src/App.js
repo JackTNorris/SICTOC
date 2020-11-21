@@ -14,6 +14,7 @@ import ReduxThunkMiddleWare from 'redux-thunk';
 import reducers from './reducers';
 import Navigator from './Navigator';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import LocationTracker from './components/LocationTracker';
 export default class App extends React.Component {
   componentDidMount() {}
   render() {
@@ -27,6 +28,7 @@ export default class App extends React.Component {
         <SafeAreaView style={styles.container}>
           <View style={{flex: 1}}>
             <Navigator />
+            <LocationTracker />
           </View>
         </SafeAreaView>
       </Provider>

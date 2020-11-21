@@ -18,5 +18,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         nearbyStudents: action.payload,
       };
+    default:
+      return state;
   }
 };
