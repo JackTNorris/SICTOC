@@ -4,21 +4,24 @@ import {connect} from 'react-redux';
 import {createRoom, joinRoom} from '../actions/ChatRoomActions';
 class NearbyStudentInfo extends React.Component {
   state = {
-    student: {},
+    nearbyStudent: {},
   };
   componentDidMount() {
-    this.setState({student: this.props.route.params.student});
+    this.setState({nearbyStudent: this.props.route.params.student});
   }
 
   startConversation = async () => {
-    await this.props.cRoom();
+    await this.props.cRoom(
+      this.props.studentID,
+      this.state.nearbyStudent.info.id,
+    );
     this.props.navigation.navigate('Chat');
   };
 
   render() {
     return (
       <View>
-        <Text>{JSON.stringify(this.state.student)}</Text>
+        <Text>{JSON.stringify(this.state.nearbyStudent)}</Text>
         <Text>Hello</Text>
         <Button title={'Start Talking'} onPress={this.startConversation} />
       </View>
@@ -28,7 +31,8 @@ class NearbyStudentInfo extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   const {navigation} = ownProps;
   const {inRoom} = state.chatRoom;
-  return {navigation, inRoom};
+  const {studentID} = state.login;
+  return {navigation, inRoom, studentID};
 };
 export default connect(mapStateToProps, {
   jRoom: joinRoom,

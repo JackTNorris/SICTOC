@@ -45,7 +45,8 @@ export const updateNearbyStudents = (lat, long, rad, studentID) => {
           if (
             distanceBetween <= rad &&
             distanceBetween <= nearbyStudentRadiusCriteria &&
-            studentID !== item.key
+            studentID !== item.key //&&
+            //item.val().online === true
           ) {
             nearbyStudents.push(item.val());
           }

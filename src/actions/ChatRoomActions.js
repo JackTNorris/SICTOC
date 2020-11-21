@@ -7,14 +7,22 @@ import {
 } from './types';
 const db = firebase.database();
 
-export const createRoom = () => {
+export const createRoom = (askerID, nearbyStudentID) => {
   return async (dispatch) => {
     const ref = await db.ref('/chats').push();
     const key = ref.key;
+    //we'll see
+    ref.update({participants: 1});
     await ref.push({
       sender: 'server',
       message: `Hello! Welcome to Chattie! Your room code is: ${key}`,
     });
+    await db.ref(`/users/${nearbyStudentID}/invitedChats`).update([
+      {
+        requestID: askerID,
+        roomCode: key,
+      },
+    ]);
     dispatch({type: CREATED_ROOM, payload: key});
   };
 };

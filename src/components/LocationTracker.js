@@ -10,7 +10,7 @@ import {
 import {PermissionsAndroid, AppState} from 'react-native';
 
 class LocationTracker extends React.Component {
-  state = {updatesEnabled: false}
+  state = {updatesEnabled: false};
   componentDidMount() {
     this.props.setRad(this.props.studentID, 200);
     AppState.addEventListener('change', (state) => {

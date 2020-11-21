@@ -11,7 +11,7 @@ export default class NearbyStudentTab extends React.Component {
           });
         }}>
         <View style={styles.nearbyStudentTab}>
-          <Text>{this.props.student.firstName}</Text>
+          <Text>{this.props.student.info.firstName}</Text>
         </View>
       </TouchableHighlight>
     );

@@ -4,6 +4,7 @@ import NearbyStudentsScreen from './NearbyStudentsScreen';
 import ProfileScreen from './ProfileScreen';
 import SettingsScreen from './SettingsScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ChatRequestsScreen from './ChatRequestsScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -49,6 +50,17 @@ export default class MainScreen extends React.Component {
               let IconComponent = Ionicons;
               // You can return any component that you like here!
               return <IconComponent name={'list'} size={25} color={color} />;
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Requests"
+          component={ChatRequestsScreen}
+          options={{
+            tabBarIcon: ({color, size}) => {
+              let IconComponent = Ionicons;
+              // You can return any component that you like here!
+              return <IconComponent name={'chatbox'} size={25} color={color} />;
             },
           }}
         />

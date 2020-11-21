@@ -18,22 +18,25 @@ class NearbyStudentsScreen extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ScrollView>
-          <Text>{JSON.stringify(this.props.nearbyStudents)}</Text>
-          <Button
-            title={'test'}
-            onPress={() =>
-              this.props.navigation.navigate('NearbyStudentInfo', {
-                student: 'jackT',
-              })
-            }
-          />
-          {this.props.nearbyStudents.map((item, i) => (
-            <NearbyStudentTab
-              key={i}
-              student={item.info}
-              navigation={this.props.navigation}
-            />
-          ))}
+          {this.props.nearbyStudents.length > 0 ? (
+            this.props.nearbyStudents.map((item, i) => (
+              <NearbyStudentTab
+                key={i}
+                student={item}
+                navigation={this.props.navigation}
+              />
+            ))
+          ) : (
+            <View
+              style={{
+                margin: 7,
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}>
+              <Text>No One Nearby</Text>
+            </View>
+          )}
         </ScrollView>
       </View>
     );
