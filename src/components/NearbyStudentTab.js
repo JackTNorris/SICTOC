@@ -11,7 +11,23 @@ export default class NearbyStudentTab extends React.Component {
           });
         }}>
         <View style={styles.nearbyStudentTab}>
-          <Text>{this.props.student.info.firstName}</Text>
+          <View style={{flexDirection: 'column', flex: 1}}>
+            <Text
+              style={
+                styles.name
+              }>{`${this.props.student.info.firstName} ${this.props.student.info.lastName}`}</Text>
+            <Text>{this.props.student.info.major}</Text>
+          </View>
+          <View
+            style={{flexDirection: 'column', flex: 1, alignItems: 'flex-end'}}>
+            <View
+              style={{flexDirection: 'column', flex: 1, alignItems: 'center'}}>
+              <Text>Year:</Text>
+              <Text style={{fontWeight: 'bold', fontSize: 15}}>
+                {this.props.student.info.year}
+              </Text>
+            </View>
+          </View>
         </View>
       </TouchableHighlight>
     );
@@ -24,7 +40,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 60,
     backgroundColor: '#bef58e',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    padding: 5,
     margin: 5,
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });

@@ -28,7 +28,9 @@ class Navigator extends React.Component {
       return (
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName={this.props.loggedIn ? 'Main' : 'Login'}>
+            initialRouteName={this.props.loggedIn ? 'Main' : 'Login'}
+            headerMode="none"
+            >
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Chat" component={ChatScreen} />
             <Stack.Screen name="Main" component={MainScreen} />

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
+import {View, Text, StyleSheet, TextInput, Button, Alert} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import MultiSelect from 'react-native-multiple-select';
 import firebase from '../config/firebase';
@@ -27,39 +27,46 @@ class ProfileForm extends React.Component {
   }
 
   populateForm = async () => {
-    await db
-      .ref(`/users/${this.props.studentID}/info`)
-      .once('value')
-      .then((snapshot) => {
-        let data = snapshot.val();
-        console.log(data);
-        this.setState({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          major: data.major,
-          gender: data.gender,
-          year: data.year,
-          covidStatus: data.covidStatus,
-          classes: data.classes,
-          enrolledCourses: data.classes.length,
-          interests: data.interests,
+    try {
+      await db
+        .ref(`/users/${this.props.studentID}/info`)
+        .once('value')
+        .then((snapshot) => {
+          let data = snapshot.val();
+          console.log(data);
+          this.setState({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            major: data.major,
+            gender: data.gender,
+            year: data.year,
+            covidStatus: data.covidStatus,
+            classes: data.classes,
+            enrolledCourses: data.classes.length,
+            interests: data.interests,
+          });
         });
-      });
+    } catch {}
   };
 
   submitForm = async () => {
-    const data = this.state;
-    console.log(data);
-    await db.ref(`/users/${this.props.studentID}/info`).update({
-      firstName: data.firstName,
-      lastName: data.lastName,
-      major: data.major,
-      gender: data.gender,
-      year: data.year,
-      covidStatus: data.covidStatus,
-      classes: data.classes,
-      interests: data.interests,
-    });
+    try {
+      const data = this.state;
+      console.log(data);
+      await db.ref(`/users/${this.props.studentID}/info`).update({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        major: data.major,
+        gender: data.gender,
+        year: data.year,
+        covidStatus: data.covidStatus,
+        classes: data.classes,
+        interests: data.interests,
+      });
+      Alert.alert('Submitted!');
+    } catch (error) {
+      Alert.alert('Error Submitting');
+    }
   };
 
   getMajors = () => {
@@ -128,9 +135,6 @@ class ProfileForm extends React.Component {
   };
 
   render() {
-    let interests = this.getInterests().map((item) => {
-      return {name: item, id: item};
-    });
     return (
       <View style={{flex: 1}}>
         <Text style={styles.fieldTitle}>Name</Text>
@@ -148,6 +152,22 @@ class ProfileForm extends React.Component {
             value={this.state.lastName}
             onChangeText={(text) => this.setState({lastName: text})}
           />
+        </View>
+        <Text style={styles.fieldTitle}>Gender</Text>
+        <View style={styles.formField}>
+          <View
+            style={{borderWidth: 5, borderColor: 'green', borderRadius: 20}}>
+            <Picker
+              selectedValue={this.state.gender}
+              style={{height: 50, width: 200}}
+              onValueChange={(itemValue, itemIndex) => {
+                this.setState({gender: itemValue});
+              }}>
+              <Picker.Item label="M" value="M" />
+              <Picker.Item label="F" value="F" />
+              <Picker.Item label="Other" value="Other" />
+            </Picker>
+          </View>
         </View>
         <Text style={styles.fieldTitle}>Year</Text>
         <View style={styles.formField}>

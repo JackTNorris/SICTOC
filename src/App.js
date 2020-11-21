@@ -15,6 +15,7 @@ import reducers from './reducers';
 import Navigator from './Navigator';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import LocationTracker from './components/LocationTracker';
+import Header from './components/Header';
 export default class App extends React.Component {
   componentWillUnmount() {
     clearInterval();
@@ -30,7 +31,12 @@ export default class App extends React.Component {
       <Provider store={store}>
         <SafeAreaView style={styles.container}>
           <View style={{flex: 1}}>
-            <Navigator />
+            <View style={{flex: 1}}>
+              <Header />
+            </View>
+            <View style={{flex: 8}}>
+              <Navigator />
+            </View>
           </View>
         </SafeAreaView>
       </Provider>
