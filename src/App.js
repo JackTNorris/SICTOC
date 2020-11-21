@@ -32,7 +32,6 @@ export default class App extends React.Component {
         <SafeAreaView style={styles.container}>
           <View style={{flex: 1}}>
             <Navigator />
-            <LocationTracker />
           </View>
         </SafeAreaView>
       </Provider>

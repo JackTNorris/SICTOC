@@ -1,14 +1,19 @@
 import * as React from 'react';
 import {View, Button, Text, TextInput, StyleSheet} from 'react-native';
+import {connect} from 'react-redux';
+import {login} from '../actions/LoginActions';
 
-export default class LoginForm extends React.Component {
+class LoginForm extends React.Component {
   state = {
     studentIdField: '',
-    errorMessage: "Sorry, you're not a student here!",
   };
 
   onClickLogin = async () => {
-    console.log('Logged In!');
+    await this.props.lgIn(this.state.studentIdField);
+    if (this.props.loggedIn) {
+      console.log(this.props.loggedIn);
+      this.props.navigation.navigate('Main');
+    }
   };
 
   render() {
@@ -23,12 +28,21 @@ export default class LoginForm extends React.Component {
             onChangeText={(text) => this.setState({studentIdField: text})}
           />
           <Button title="Login" onPress={this.onClickLogin} />
-          <Text>{this.state.errorMessage}</Text>
+          <Text>{this.props.errorMessage}</Text>
         </View>
       </View>
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  const {navigation} = ownProps;
+  const {errorMessage, loggedIn} = state.login;
+  return {navigation, loggedIn, errorMessage};
+};
+export default connect(mapStateToProps, {
+  lgIn: login,
+})(LoginForm);
 
 const styles = StyleSheet.create({
   input: {

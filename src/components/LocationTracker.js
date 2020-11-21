@@ -10,27 +10,28 @@ import {
 import {PermissionsAndroid, AppState} from 'react-native';
 
 class LocationTracker extends React.Component {
+  state = {updatesEnabled: false}
   componentDidMount() {
-    this.props.setRad('123456', 200);
+    this.props.setRad(this.props.studentID, 200);
     AppState.addEventListener('change', (state) => {
       if (state === 'active') {
         this.getLocUpdate();
         console.log('ready');
       } else if (state === 'background') {
-        this.state.updatesEnabled = false;
+        this.setState({updatesEnabled: false});
         Geolocation.clearWatch(this.watchId);
         clearTimeout();
         clearInterval();
         Geolocation.stopObserving();
-        this.props.stop('123456');
+        this.props.stop(this.props.studentID);
         console.log('stopped');
       } else if (state === 'inactive') {
-        this.state.updatesEnabled = false;
+        this.setState({updatesEnabled: false});
         Geolocation.clearWatch(this.watchId);
         Geolocation.stopObserving();
         clearTimeout();
         clearInterval();
-        this.props.stop('123456');
+        this.props.stop(this.props.studentID);
         console.log('stopped');
       }
     });
@@ -70,13 +71,13 @@ class LocationTracker extends React.Component {
           this.props.updateLoc(
             position.coords.latitude,
             position.coords.longitude,
-            '123456',
+            this.props.studentID,
           );
           this.props.updateNearbyStuds(
             position.coords.latitude,
             position.coords.longitude,
             this.props.radius,
-            '123456',
+            this.props.studentID,
           );
           console.log(position.coords.speed);
         },
@@ -101,7 +102,8 @@ class LocationTracker extends React.Component {
 
 const mapStateToProps = (state) => {
   const {radius} = state.geolocation;
-  return {radius};
+  const {studentID} = state.login;
+  return {radius, studentID};
 };
 
 export default connect(mapStateToProps, {

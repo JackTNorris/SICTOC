@@ -6,7 +6,7 @@ export default class LoginScreen extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <LoginForm />
+        <LoginForm navigation={this.props.navigation} />
       </View>
     );
   }

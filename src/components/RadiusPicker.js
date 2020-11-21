@@ -23,7 +23,7 @@ class NotificationRadiusPicker extends Component {
             onChange={async (value) => {
               this.setState({radius: value});
               this.props.setNotificationDistance(value);
-              this.props.updateRad('123456', value);
+              this.props.updateRad(this.props.studentID, value);
             }}
             onLimitReached={(isMax, msg) => console.log(isMax, msg)}
             totalWidth={240}
@@ -67,11 +67,11 @@ class NotificationRadiusPicker extends Component {
   }
 }
 
-export default connect(
-  (state) => {
-    return {};
-  },
-  {
-    updateRad: updatedRadius,
-  },
-)(NotificationRadiusPicker);
+const mapStateToProps = (state) => {
+  const {studentID} = state.login;
+  return {studentID};
+};
+
+export default connect(mapStateToProps, {
+  updateRad: updatedRadius,
+})(NotificationRadiusPicker);
