@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, PermissionsAndroid} from 'react-native';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import ReduxThunkMiddleWare from 'redux-thunk';
@@ -16,7 +16,6 @@ import Navigator from './Navigator';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import LocationTracker from './components/LocationTracker';
 export default class App extends React.Component {
-  componentDidMount() {}
   componentWillUnmount() {
     clearInterval();
     clearTimeout();

@@ -19,9 +19,10 @@ export const login = (studentID) => {
             age: 0,
             gender: 'M',
             major: 'Computer Science',
+            year: 'Freshman',
             covidStatus: 'Vaccinated',
             interests: ['Sports', 'Videogames'],
-            classes: ['PHYS 2074, CSCE 2004, CSCE 2014', 'CHEM 1103'],
+            classes: ['PHYS 2074', 'CSCE 2004', 'CSCE 2014', 'CHEM 1103'],
           },
           invitedChats: [],
           location: {

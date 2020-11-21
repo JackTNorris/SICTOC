@@ -25,6 +25,7 @@ class LocationTracker extends React.Component {
       if (state === 'active') {
         console.log('ready');
       } else if (state === 'inactive') {
+        this.props.stop(this.props.studentID);
         clearTimeout();
         clearInterval();
         this.props.stop(this.props.studentID);
