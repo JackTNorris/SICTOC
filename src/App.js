@@ -17,6 +17,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import LocationTracker from './components/LocationTracker';
 export default class App extends React.Component {
   componentDidMount() {}
+  componentWillUnmount() {
+    clearInterval();
+    clearTimeout();
+  }
   render() {
     const store = createStore(
       reducers,

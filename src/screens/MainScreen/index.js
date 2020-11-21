@@ -11,7 +11,7 @@ export default class MainScreen extends React.Component {
   render() {
     return (
       <Tab.Navigator
-        initialRouteName="NearbyStudents"
+        initialRouteName="Nearby"
         tabBarOptions={{activeTintColor: '#e91e63'}}>
         <Tab.Screen
           name="Settings"

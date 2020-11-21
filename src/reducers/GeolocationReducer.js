@@ -1,9 +1,14 @@
-import {UPDATED_LOCATION, UPDATED_NEARBY_STUDENTS} from '../actions/types';
+import {
+  UPDATED_LOCATION,
+  UPDATED_NEARBY_STUDENTS,
+  UPDATED_RADIUS,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   latitude: '',
   longitude: '',
   nearbyStudents: [],
+  radius: 200,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -17,6 +22,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         nearbyStudents: action.payload,
+      };
+    case UPDATED_RADIUS:
+      return {
+        ...state,
+        radius: action.payload,
       };
     default:
       return state;

@@ -3,6 +3,7 @@ import Geolocation from '@react-native-community/geolocation';
 import {connect} from 'react-redux';
 import {
   stopUpdating,
+  updatedRadius,
   updateLocation,
   updateNearbyStudents,
 } from '../actions/GeolocationActions';
@@ -10,12 +11,16 @@ import {PermissionsAndroid, AppState} from 'react-native';
 
 class LocationTracker extends React.Component {
   componentDidMount() {
+    this.props.setRad('123456', 200);
     AppState.addEventListener('change', (state) => {
       if (state === 'active') {
         this.getLocUpdate();
+        console.log('ready');
       } else if (state === 'background') {
         this.state.updatesEnabled = false;
         Geolocation.clearWatch(this.watchId);
+        clearTimeout();
+        clearInterval();
         Geolocation.stopObserving();
         this.props.stop('123456');
         console.log('stopped');
@@ -23,7 +28,8 @@ class LocationTracker extends React.Component {
         this.state.updatesEnabled = false;
         Geolocation.clearWatch(this.watchId);
         Geolocation.stopObserving();
-
+        clearTimeout();
+        clearInterval();
         this.props.stop('123456');
         console.log('stopped');
       }
@@ -69,6 +75,8 @@ class LocationTracker extends React.Component {
           this.props.updateNearbyStuds(
             position.coords.latitude,
             position.coords.longitude,
+            this.props.radius,
+            '123456',
           );
           console.log(position.coords.speed);
         },
@@ -79,20 +87,11 @@ class LocationTracker extends React.Component {
         {
           enableHighAccuracy: true,
           distanceFilter: 0,
-          interval: 500,
-          fastestInterval: 500,
+          interval: 1000,
+          fastestInterval: 1000,
         },
       );
     });
-  };
-
-  stopUpdates = () => {
-    this.setState({updatesEnabled: false});
-    this.setState({speed: null, speedLimit: null});
-    Geolocation.clearWatch(this.watchId);
-
-    this.setState({updatesEnabled: false});
-    console.log('stoppped updates');
   };
 
   render() {
@@ -100,13 +99,14 @@ class LocationTracker extends React.Component {
   }
 }
 
-export default connect(
-  (state) => {
-    return {};
-  },
-  {
-    updateLoc: updateLocation,
-    updateNearbyStuds: updateNearbyStudents,
-    stop: stopUpdating,
-  },
-)(LocationTracker);
+const mapStateToProps = (state) => {
+  const {radius} = state.geolocation;
+  return {radius};
+};
+
+export default connect(mapStateToProps, {
+  updateLoc: updateLocation,
+  updateNearbyStuds: updateNearbyStudents,
+  stop: stopUpdating,
+  setRad: updatedRadius,
+})(LocationTracker);

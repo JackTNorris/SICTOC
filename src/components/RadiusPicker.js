@@ -1,24 +1,14 @@
 import React, {Component} from 'react';
 import NumericInput from 'react-native-numeric-input';
 import {View, Image, Text} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-export default class NotificationRadiusPicker extends Component {
+import {connect} from 'react-redux';
+import {updatedRadius} from '../actions/GeolocationActions';
+class NotificationRadiusPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
       radius: 200,
     };
-  }
-  async componentDidMount() {
-    //for later
-    /*
-    try {
-      let rad = await AsyncStorage.getItem('notificationDistance');
-      rad ? this.setState({radius: +rad}) : rad;
-    } catch (error) {
-      console.log(error.message);
-    }
-    */
   }
 
   render() {
@@ -33,15 +23,7 @@ export default class NotificationRadiusPicker extends Component {
             onChange={async (value) => {
               this.setState({radius: value});
               this.props.setNotificationDistance(value);
-              try {
-                await AsyncStorage.setItem(
-                  'notificationDistance',
-                  value.toString(),
-                  () => console.log('Wrote new notification distance'),
-                );
-              } catch (error) {
-                console.log(error);
-              }
+              this.props.updateRad('123456', value);
             }}
             onLimitReached={(isMax, msg) => console.log(isMax, msg)}
             totalWidth={240}
@@ -84,3 +66,12 @@ export default class NotificationRadiusPicker extends Component {
     );
   }
 }
+
+export default connect(
+  (state) => {
+    return {};
+  },
+  {
+    updateRad: updatedRadius,
+  },
+)(NotificationRadiusPicker);
