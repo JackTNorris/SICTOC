@@ -26,7 +26,6 @@ class ChatRequestsScreen extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ScrollView>
-          <Text>{JSON.stringify(this.props.nearbyStudents)}</Text>
           {this.state.invitedChats.length > 0 ? (
             this.state.invitedChats.map((item, i) => (
               <ChatRequestTab

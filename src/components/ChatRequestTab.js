@@ -15,6 +15,7 @@ class ChatRequestTab extends React.Component {
     firstNameRequest: '',
     lastNameRequest: '',
     majorRequest: '',
+    yearRequest: '',
   };
   async componentDidMount() {
     await db
@@ -26,6 +27,7 @@ class ChatRequestTab extends React.Component {
           firstNameRequest: info.firstName,
           lastNameRequest: info.lastName,
           majorRequest: info.major,
+          yearRequest: info.year,
         });
       });
   }
@@ -41,7 +43,23 @@ class ChatRequestTab extends React.Component {
     return (
       <TouchableHighlight onPress={this.onClickToJoin}>
         <View style={styles.chatRequestTab}>
-          <Text>{`${this.state.firstNameRequest} ${this.state.lastNameRequest}`}</Text>
+          <View style={{flexDirection: 'column', flex: 1}}>
+            <Text
+              style={
+                styles.nameText
+              }>{`${this.state.firstNameRequest} ${this.state.lastNameRequest}`}</Text>
+            <Text>{this.state.majorRequest}</Text>
+          </View>
+          <View
+            style={{flexDirection: 'column', flex: 1, alignItems: 'flex-end'}}>
+            <View
+              style={{flexDirection: 'column', flex: 1, alignItems: 'center'}}>
+              <Text>Year:</Text>
+              <Text style={{fontWeight: 'bold', fontSize: 15}}>
+                {this.state.yearRequest}
+              </Text>
+            </View>
+          </View>
         </View>
       </TouchableHighlight>
     );
@@ -63,11 +81,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     height: 60,
-    backgroundColor: '#bef58e',
+    backgroundColor: '#cad9cb',
     justifyContent: 'flex-start',
+    padding: 5,
     margin: 5,
   },
   nameText: {
-    fontSize: 25,
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
