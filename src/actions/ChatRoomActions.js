@@ -12,10 +12,9 @@ export const createRoom = (askerID, nearbyStudentID) => {
     const ref = await db.ref('/chats').push();
     const key = ref.key;
     //we'll see
-    ref.update({participants: 1});
     await ref.push({
       sender: 'server',
-      message: `Hello! Welcome to Chattie! Your room code is: ${key}`,
+      message: `Hello! Welcome to SicToc!`,
     });
     await db.ref(`/users/${nearbyStudentID}/invitedChats`).update([
       {
