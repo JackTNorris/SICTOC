@@ -10,25 +10,21 @@ import {
 import {PermissionsAndroid, AppState} from 'react-native';
 
 class LocationTracker extends React.Component {
-  state = {updatesEnabled: false};
+  state = {
+    loading: false,
+    updatesEnabled: false,
+    speed: 0,
+    location: {},
+    speedLimit: null,
+  };
   componentDidMount() {
+    this.requestLocationPermission();
+    setInterval(this.getLocUpdate, 3000);
     this.props.setRad(this.props.studentID, 200);
     AppState.addEventListener('change', (state) => {
       if (state === 'active') {
-        this.getLocUpdate();
         console.log('ready');
-      } else if (state === 'background') {
-        this.setState({updatesEnabled: false});
-        Geolocation.clearWatch(this.watchId);
-        clearTimeout();
-        clearInterval();
-        Geolocation.stopObserving();
-        this.props.stop(this.props.studentID);
-        console.log('stopped');
       } else if (state === 'inactive') {
-        this.setState({updatesEnabled: false});
-        Geolocation.clearWatch(this.watchId);
-        Geolocation.stopObserving();
         clearTimeout();
         clearInterval();
         this.props.stop(this.props.studentID);
@@ -64,7 +60,32 @@ class LocationTracker extends React.Component {
     if (!hasLocationPermission) {
       return;
     }
+    console.log('here!');
+    Geolocation.getCurrentPosition(
+      (position) => {
+        this.props.updateLoc(
+          position.coords.latitude,
+          position.coords.longitude,
+          this.props.studentID,
+        );
+        this.props.updateNearbyStuds(
+          position.coords.latitude,
+          position.coords.longitude,
+          this.props.radius,
+          this.props.studentID,
+        );
+        console.log(position);
+      },
+      (error) => {
+        this.setState({location: error});
+        console.log(error);
+      },
+      {
+        enableHighAccuracy: true,
+      },
+    );
     //let speedLimit = await this.getSpeedLimit();
+    /*
     this.setState({updatesEnabled: true}, () => {
       this.watchId = Geolocation.watchPosition(
         (position) => {
@@ -89,10 +110,12 @@ class LocationTracker extends React.Component {
           enableHighAccuracy: true,
           distanceFilter: 0,
           interval: 1000,
-          fastestInterval: 1000,
+          maximumAge: 10000,
+          fastestInterval: 500,
         },
       );
     });
+    */
   };
 
   render() {
