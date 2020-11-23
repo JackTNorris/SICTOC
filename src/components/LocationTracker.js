@@ -30,8 +30,7 @@ class LocationTracker extends React.Component {
         clearInterval();
         this.props.stop(this.props.studentID);
         console.log('stopped');
-      }
-      else if (state === 'background') {
+      } else if (state === 'background') {
         this.props.stop(this.props.studentID);
         clearTimeout();
         clearInterval();
@@ -88,9 +87,7 @@ class LocationTracker extends React.Component {
         this.setState({location: error});
         console.log(error);
       },
-      {
-        enableHighAccuracy: true,
-      },
+      {},
     );
     //let speedLimit = await this.getSpeedLimit();
     /*
