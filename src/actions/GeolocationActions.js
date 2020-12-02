@@ -40,8 +40,9 @@ export const updateNearbyStudents = (lat, long, rad, studentID) => {
             item.val()?.location?.latitude,
             item.val()?.location?.longitude,
           );
+          console.log("HAVERSINE RESULTS");
+          console.log(distanceBetween);
           let nearbyStudentRadiusCriteria = item.val().radius;
-          //less thatn 2000 ft
           if (
             distanceBetween <= rad &&
             distanceBetween <= nearbyStudentRadiusCriteria &&
