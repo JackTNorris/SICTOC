@@ -10,3 +10,11 @@
 </ul>
   <h2>Demo: </h2>
 <p align="center"><img src="./sictoc.gif" /><p>
+  <h2>Developed with:</h2>
+  <ul>
+    <li>React Native</li>
+    <li>React Redux</li>
+    <li>Firebase</li>
+    <li>react-native-geolocation/community</li>
+    <li>Haversine Algorithm</li>
+ </ul>
