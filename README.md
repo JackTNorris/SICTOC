@@ -7,6 +7,7 @@
   <li>Customizeable profile (to find similar interests)</li>
   <li>Discovery radius picker</li>
   <li>Non-persistent chats (they disappear like an actual conversation!)</li>
+  <li>Login that cross references data with mock student IDs in a database to verify a user is a student!</li>
 </ul>
   <h2>Demo: </h2>
 <p align="center"><img src="./sictoc.gif" /><p>
