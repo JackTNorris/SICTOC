@@ -1,6 +1,6 @@
 <h1 align="center"><img src="./src/assets/sictoc.png" /><h1>
 <h2>What is it?</h3>
-<p>A location-based chat app targeted towards students, designed to allow for "cold-approches" in a global pandemic | Winner of the Fall 2020 UARK ACM Hackathon (meaning it was coded in 24 hrs, so excuse the bugs)</p>
+<p>A location-based chat app targeted towards students, designed to allow for "cold-approches" in a global pandemic | Winner of the Fall 2020 UARK ACM Hackathon (meaning I coded it in < 24 hrs, so excuse the bugs)</p>
   <h2>Features</h2>
 <ul>
   <li>Chat function to interact with people nearby!</li>
